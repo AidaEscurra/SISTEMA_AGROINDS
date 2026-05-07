@@ -1,11 +1,37 @@
 package modelo;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tb_producto")
 public class ProductoModelo {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "prod_id")
 	private Long idProducto;
+
+	@Column(name = "prod_nombre", nullable = false, length = 100)
 	private String nombreProducto;
+
+	@Column(name = "prod_tipo", nullable = false, length = 50)
 	private String tipoProducto;
+
+	@Column(name = "prod_descripcion", length = 255)
 	private String descripcion;
-	private Integer estado;
+
+	@Column(name = "prod_estado", nullable = false)
+	private boolean estado;
+
+	// Constructor vacío obligatorio para Hibernate
+	public ProductoModelo() {
+		super();
+	}
 
 	// Getters y Setters
 	public Long getIdProducto() {
@@ -40,12 +66,11 @@ public class ProductoModelo {
 		this.descripcion = descripcion;
 	}
 
-	public Integer getEstado() {
+	public boolean isEstado() {
 		return estado;
 	}
 
-	public void setEstado(Integer estado) {
+	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
-
 }

@@ -1,42 +1,70 @@
 package modelo;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tb_detalle_produccion")
 public class DetalleProduccionModelo {
-	private Long idDetalle;
-	private ProduccionModelo produccion; // Relación con la cabecera
-	private MateriaPrimaModelo materiaPrima; // El insumo utilizado
-	private Double cantidadUtilizada;
 
-	// Getters y Setters
-	public Long getIdDetalle() {
-		return idDetalle;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "det_id")
+    private Long idDetalle;
 
-	public void setIdDetalle(Long idDetalle) {
-		this.idDetalle = idDetalle;
-	}
+    // Muchos detalles pertenecen a una sola producción
+    @ManyToOne
+    @JoinColumn(name = "prod_id", nullable = false)
+    private ProduccionModelo produccion;
 
-	public ProduccionModelo getProduccion() {
-		return produccion;
-	}
+    // Muchos detalles pueden usar la misma materia prima
+    @ManyToOne
+    @JoinColumn(name = "mat_id", nullable = false)
+    private MateriaPrimaModelo materiaPrima;
 
-	public void setProduccion(ProduccionModelo produccion) {
-		this.produccion = produccion;
-	}
+    @Column(name = "det_cantidad_utilizada", nullable = false)
+    private Double cantidadUtilizada;
 
-	public MateriaPrimaModelo getMateriaPrima() {
-		return materiaPrima;
-	}
+    public DetalleProduccionModelo() {
+        super();
+    }
 
-	public void setMateriaPrima(MateriaPrimaModelo materiaPrima) {
-		this.materiaPrima = materiaPrima;
-	}
+    // Getters y Setters
+    public Long getIdDetalle() {
+        return idDetalle;
+    }
 
-	public Double getCantidadUtilizada() {
-		return cantidadUtilizada;
-	}
+    public void setIdDetalle(Long idDetalle) {
+        this.idDetalle = idDetalle;
+    }
 
-	public void setCantidadUtilizada(Double cantidadUtilizada) {
-		this.cantidadUtilizada = cantidadUtilizada;
-	}
+    public ProduccionModelo getProduccion() {
+        return produccion;
+    }
 
+    public void setProduccion(ProduccionModelo produccion) {
+        this.produccion = produccion;
+    }
+
+    public MateriaPrimaModelo getMateriaPrima() {
+        return materiaPrima;
+    }
+
+    public void setMateriaPrima(MateriaPrimaModelo materiaPrima) {
+        this.materiaPrima = materiaPrima;
+    }
+
+    public Double getCantidadUtilizada() {
+        return cantidadUtilizada;
+    }
+
+    public void setCantidadUtilizada(Double cantidadUtilizada) {
+        this.cantidadUtilizada = cantidadUtilizada;
+    }
 }

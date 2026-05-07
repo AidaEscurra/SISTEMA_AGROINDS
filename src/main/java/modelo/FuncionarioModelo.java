@@ -1,72 +1,102 @@
 package modelo;
 
-import java.util.Date;
+import java.time.LocalDate;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "tb_funcionario")
 public class FuncionarioModelo {
-	private Long idFuncionario;
-	private PersonaModelo persona; // Representa la FK persona_id
-	private Date fechaIngreso;
-	private String cargo;
-	private String sector;
-	private String funcion;
-	private Integer estado;
 
-	// Getters y Setters
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "fun_id")
+    private Long idFuncionario;
 
-	public Long getIdFuncionario() {
-		return idFuncionario;
-	}
+    // Relación OneToOne explicada en el video
+    @OneToOne
+    @JoinColumn(name = "per_id", nullable = false, unique = true)
+    private PersonaModelo persona; 
 
-	public void setIdFuncionario(Long idFuncionario) {
-		this.idFuncionario = idFuncionario;
-	}
+    @Column(name = "fun_fecha_ingreso", nullable = false)
+    private LocalDate fechaIngreso;
 
-	public PersonaModelo getPersona() {
-		return persona;
-	}
+    @Column(name = "fun_cargo", nullable = false, length = 100)
+    private String cargo;
 
-	public void setPersona(PersonaModelo persona) {
-		this.persona = persona;
-	}
+    @Column(name = "fun_sector", nullable = false, length = 100)
+    private String sector;
 
-	public Date getFechaIngreso() {
-		return fechaIngreso;
-	}
+    @Column(name = "fun_funcion", nullable = false, length = 100)
+    private String funcion;
 
-	public void setFechaIngreso(Date fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
-	}
+    @Column(name = "fun_estado", nullable = false)
+    private boolean estado;
 
-	public String getCargo() {
-		return cargo;
-	}
+    public FuncionarioModelo() {
+        super();
+    }
 
-	public void setCargo(String cargo) {
-		this.cargo = cargo;
-	}
+    // Getters y Setters
+    public Long getIdFuncionario() {
+        return idFuncionario;
+    }
 
-	public String getSector() {
-		return sector;
-	}
+    public void setIdFuncionario(Long idFuncionario) {
+        this.idFuncionario = idFuncionario;
+    }
 
-	public void setSector(String sector) {
-		this.sector = sector;
-	}
+    public PersonaModelo getPersona() {
+        return persona;
+    }
 
-	public String getFuncion() {
-		return funcion;
-	}
+    public void setPersona(PersonaModelo persona) {
+        this.persona = persona;
+    }
 
-	public void setFuncion(String funcion) {
-		this.funcion = funcion;
-	}
+    public LocalDate getFechaIngreso() {
+        return fechaIngreso;
+    }
 
-	public Integer getEstado() {
-		return estado;
-	}
+    public void setFechaIngreso(LocalDate fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
 
-	public void setEstado(Integer estado) {
-		this.estado = estado;
-	}
+    public String getCargo() {
+        return cargo;
+    }
 
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    public String getSector() {
+        return sector;
+    }
+
+    public void setSector(String sector) {
+        this.sector = sector;
+    }
+
+    public String getFuncion() {
+        return funcion;
+    }
+
+    public void setFuncion(String funcion) {
+        this.funcion = funcion;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
 }

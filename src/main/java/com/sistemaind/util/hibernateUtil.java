@@ -5,7 +5,7 @@ package com.sistemaind.util;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class hibernateUtil {
+public class HibernateUtil {
  private static final SessionFactory SESSION_FACTORY = buildSessionFactory();
 
  private static SessionFactory buildSessionFactory() {
