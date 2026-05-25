@@ -1,4 +1,4 @@
-package com.sistemaind.util;
+package util;
 /*esta clase se escarga de configurar y mantener una unica conexion glogal para toda nuestra aplicacion
 (session factory)*/
 

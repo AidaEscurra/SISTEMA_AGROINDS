@@ -1,8 +1,5 @@
-package com.sistemaind.util;
+package util;
 
-import com.sistemaind.util.HibernateUtil;
-import modelo.PersonaModelo;
-import java.time.LocalDate;
 
 public class PruebaConexion {
     public static void main(String[] args) {

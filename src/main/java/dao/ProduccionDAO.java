@@ -1,7 +1,8 @@
 package dao;
 
 import modelo.ProduccionModelo;
-import com.sistemaind.util.HibernateUtil;
+import util.HibernateUtil;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
