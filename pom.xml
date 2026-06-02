@@ -41,6 +41,14 @@
 			<artifactId>jakarta.persistence-api</artifactId>
 			<version>3.1.0</version>
 		</dependency>
+
+		<!-- Libreria de Jasper para reportes -->
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.21.5</version>
+		</dependency>
+
 	</dependencies>
 
 </project>
