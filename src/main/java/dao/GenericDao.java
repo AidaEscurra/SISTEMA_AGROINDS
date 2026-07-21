@@ -12,7 +12,7 @@ import util.HibernateUtil;
 public class GenericDao<T> {
 	protected Class <T> clase;
 
-	public GenericDao() {
+	public GenericDao(Class<T> clase) {
 		super();
 		this.clase = clase;
 	}
@@ -23,17 +23,19 @@ public class GenericDao<T> {
 		}
 	//metodo guardar que inserta en la base de datos
 	
-	public void guardar(T entity)throws Exception {
-		try(Session session = getSession()){
-			Transaction transaccion = session.beginTransaction();
-			try {
-				session.merge(entity);
-				transaccion.commit();
-			} catch (Exception e) {
-				if(transaccion != null)transaccion.rollback();
-				throw e;
-			}
-		}
+	public void guardar(T entity) {
+		Transaction tx = null;
+	    Session session = HibernateUtil.getSessionFactory().openSession();
+	    try {
+	        tx = session.beginTransaction();
+	        session.saveOrUpdate(entity); // saveOrUpdate
+	        tx.commit();
+	    } catch (Exception e) {
+	        if (tx != null) tx.rollback();
+	        e.printStackTrace();
+	    } finally {
+	        session.close();
+	    }
 	}
 	//metodo elimina los datos en la base de datos
 	

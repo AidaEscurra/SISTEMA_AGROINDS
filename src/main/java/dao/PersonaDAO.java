@@ -1,29 +1,33 @@
 package dao;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 import modelo.PersonaModelo;
 import util.HibernateUtil;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import java.util.List;
+public class PersonaDAO extends GenericDao<PersonaModelo> {
 
-public class PersonaDAO {
-
-    public void guardar(PersonaModelo persona) {
-        Transaction tx = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            tx = session.beginTransaction();
-            session.persist(persona);
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null) tx.rollback();
-            e.printStackTrace();
-        }
+    public PersonaDAO() {
+        super(PersonaModelo.class);
     }
 
-    public List<PersonaModelo> listarActivos() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("FROM PersonaModelo WHERE estado = true", PersonaModelo.class).list();
+    // Método obligatorio que llama PersonaController para la JTable y la búsqueda
+    public List<PersonaModelo> buscarPorFiltro(String filtro) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List<PersonaModelo> lista = new ArrayList<>();
+        try {
+            String hql = "FROM PersonaModelo p WHERE LOWER(p.nombre) LIKE :filtro " +
+                         "OR LOWER(p.apellido) LIKE :filtro OR p.documento LIKE :filtro";
+            Query<PersonaModelo> query = session.createQuery(hql, PersonaModelo.class);
+            query.setParameter("filtro", "%" + filtro.toLowerCase().trim() + "%");
+            lista = query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close(); //Cierre seguro de sesión
         }
+        return lista;
     }
 }
