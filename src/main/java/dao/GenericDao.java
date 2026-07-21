@@ -17,7 +17,7 @@ public class GenericDao<T> {
 		this.clase = clase;
 	}
 	
-	//usa el contexto actia; para abrir la session
+	//usa el contexto para abrir la session
 	protected Session getSession() {
 		return HibernateUtil.getSessionFactory().openSession();
 		}
