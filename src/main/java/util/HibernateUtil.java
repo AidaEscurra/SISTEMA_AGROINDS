@@ -10,9 +10,17 @@ public class HibernateUtil {
 
  private static SessionFactory buildSessionFactory() {
 	try {
-		//Crear la SessionFactory a partir del archivo Hibernate.cfg.configure()
-		//buscar automaticamente el archivo en src/main/resources
-		return new Configuration().configure().buildSessionFactory();
+
+		String password = System.getenv("CONTRASENA_POSTGRES");
+		
+		if(password == null) throw new RuntimeException("No se encontro la variable de entorno con la contrasena de postgres");
+		
+		Configuration configuration =  new Configuration().configure();
+		
+		configuration.setProperty("hibernate.connection.password", password);
+		
+		return configuration.buildSessionFactory();
+
 	} catch (Throwable e) {
 		//Muestra un error si es que no consigue
 		System.err.println("Error al inicializar la SessionFactory" + e);
